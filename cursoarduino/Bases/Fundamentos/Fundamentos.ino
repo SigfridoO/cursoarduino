@@ -2,42 +2,58 @@
 
 
 // pines de entradas
-int boton0 = 36; //8;
-int boton1 = 35; //;
+int BA = 36; //8;
+int BP = 35; //;
+int S1 = 34;
 
 // pines de salidas
-int led0 = 26; //5;
+int MotorA = 26; //5;
+int MotorB = 27; //5;
 
 
 // Variables Auxiliares
+//Entradas
 int X0 = 0;
 int X1 = 0;
+int X2 = 0;
 
+// Salidas
 int Y0 = 0;
+int Y1 = 0;
 
 int R = 0;
+int GIRO = 0;
+//int Z0 = 0;
+//int Z1 = 0;
+
 
 void setup() {
   // Se ejecuta una sola vez
-  pinMode(boton0, INPUT);
-  pinMode(boton1, INPUT);
-  pinMode(led0, OUTPUT);
+  pinMode(BA, INPUT);
+  pinMode(BP, INPUT);
+  pinMode(S1, INPUT);
+  
+  pinMode(MotorA, OUTPUT);
+  pinMode(MotorB, OUTPUT);
 
 }
 
 void loop() {
 
-//  Y0 = X0;
   R = (X0 || R) && !X1;
-  Y0 = R;
+  GIRO = R && !X2;
+  Y0 = R && GIRO;
+  Y1 = R && !GIRO;
 
 
   
   // Se ejecuta infinitamente
-  X0 = digitalRead(boton0);
-  X1 = digitalRead(boton1);
+  X0 = digitalRead(BA);
+  X1 = digitalRead(BP);
+  X2 = digitalRead(S1);
   
-  digitalWrite(led0, Y0);
+  digitalWrite(MotorA, Y0);
+  digitalWrite(MotorB, Y1);
 
   
 }
